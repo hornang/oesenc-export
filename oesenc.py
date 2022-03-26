@@ -1,11 +1,5 @@
 #!/usr/bin/python3
 
-"""
-This program is based on code from https://github.com/bdbcat/oesenc_pi
-commit 2d40cd43b7a33276723b9f1b445b9cb49810204b dated 30 Sep 2020.
-
-"""
-
 import os
 import struct
 from enum import IntEnum
@@ -39,6 +33,7 @@ class RecordType(IntEnum):
     CELL_EXTENT_RECORD  = 100
     CELL_TXTDSC_INFO_FILE_RECORD = 101
 
+    SERVER_STATUS_RECORD = 200
 
 class OSENC_Record_Base:
     _type = 0
@@ -80,11 +75,15 @@ class Oesenc:
             firstRecord = OSENC_Record_Base()
             firstRecord.unpack(f.read(firstRecord.size()))
 
-            if firstRecord.type() != 1 or firstRecord.recordLength() >= 16:
+            # https://github.com/bdbcat/o-charts_pi/commit/a58b0556f68b38ce69379d7e41bc50804c45104f
+            if firstRecord.type() == RecordType.SERVER_STATUS_RECORD and firstRecord.recordLength() < 20:
+                data = f.read(firstRecord.recordLength() - firstRecord.size())
+            elif firstRecord.type() == RecordType.HEADER_SENC_VERSION and firstRecord.recordLength() >= 6 and firstRecord.recordLength() < 16:
+                data = f.read(firstRecord.recordLength() - firstRecord.size())
+                self._version = struct.unpack("=H", data)[0]
+            else:
                 return
 
-            data = f.read(firstRecord.recordLength() - firstRecord.size())
-            self._version = struct.unpack("=H", data)[0]
             self._valid = True
 
             while(True):
