@@ -17,7 +17,7 @@ Please support o-charts.org by purchasing your charts there. Only use this scrip
 ## Prerequisites
 
 * The [oeSENC Charts Plugin](https://opencpn.org/OpenCPN/plugins/oesenc.html)
-* Python 3.7 or higher
+* Python 3.8 or higher
 * Python package `psutil`
 * On Windows you also need Python package `pywin32`
 
