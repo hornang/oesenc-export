@@ -99,6 +99,9 @@ class Oesenc:
                 type = recordBase.type()
 
                 if type == RecordType.HEADER_SENC_VERSION:
+                    if len(data) != 2:
+                        self._valid = False
+                        break
                     self._version = struct.unpack("=H", data)[0]
 
                 elif type == RecordType.HEADER_CELL_NAME:
