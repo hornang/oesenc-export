@@ -135,7 +135,7 @@ def testPipe(pipeName):
 
 async def startOeservd(path, pipe):
     if testPipe(pipe):
-        log.info("✔ Decryption service already running")
+        log.info("Decryption service already running")
         return True
 
     if platform.system() == 'Windows':
@@ -150,7 +150,7 @@ async def startOeservd(path, pipe):
     for counter in range(0, 50):
         await asyncio.sleep(0.1)
         if testPipe(pipe):
-            log.info('✔ Started decryption service: {}'.format(path))
+            log.info('Started decryption service: {}'.format(path))
             return True
 
     return False
@@ -322,12 +322,12 @@ def unencryptChart(path, destination):
         return False
 
     if os.path.isdir(destination):
-        log.fatal("❌ Destination exists")
+        log.fatal("Destination exists")
         requestStopOeserverd(pipeName, serviceType)
         return False
 
     os.mkdir(destination)
-    log.info('✔ Created destination directory')
+    log.info('Created destination directory')
 
     listing = os.listdir(path)
     chartFiles = [file for file in listing if file.endswith('.oesu') or file.endswith(".oesenc")]
@@ -341,7 +341,7 @@ def unencryptChart(path, destination):
         possibleLetters = string.ascii_lowercase + string.ascii_uppercase + string.digits
         returnPipeName = '/tmp/' + ''.join((random.choice(possibleLetters) for i in range(6)))
         createPipe(returnPipeName)
-        log.info('✔ Created random pipe {}'.format(returnPipeName))
+        log.info('Created random pipe {}'.format(returnPipeName))
 
     totalString = '{}'.format(len(chartFiles))
     numFailed = 0
@@ -353,7 +353,7 @@ def unencryptChart(path, destination):
     if os.path.isfile(chartInfoFile):
         chartInfo = parseChartInfo(os.path.join(path, 'Chartinfo.txt'))
         if 'UserKey' in chartInfo:
-            log.info('✔ Found UserKey in Chartinfo.txt')
+            log.info('Found UserKey in Chartinfo.txt')
             userKey = chartInfo['UserKey']
 
     xmlFiles = [file for file in listing if file.lower().endswith('.xml')]
@@ -362,7 +362,7 @@ def unencryptChart(path, destination):
     for xmlFile in xmlFiles:
         chartKeys = parseXmlList(os.path.join(path, xmlFile))
         if chartKeys:
-            log.info('✔ Loaded chart keys from {}'.format(xmlFile))
+            log.info('Loaded chart keys from {}'.format(xmlFile))
             break
 
     log.info('Decrypting charts files:')
@@ -387,13 +387,13 @@ def unencryptChart(path, destination):
 
         if platform.system() == 'Windows':
             if not exportChartFileWindows(fullPathToChart, pipeName, outputFile, chartKey, serviceType):
-                log.warning('❌ {}: No data from encryption service'.format(chartFile))
+                log.warning('{}: No data from encryption service'.format(chartFile))
                 oesuFileFailed |= fullPathToChart.endswith('.oesu')
                 numFailed += 1
                 continue
         else:
             if not requestReadChart(fullPathToChart, pipeName, returnPipeName, chartKey, serviceType):
-                log.warning('❌ {}: No data from encryption service'.format(chartFile))
+                log.warning('{}: No data from encryption service'.format(chartFile))
                 oesuFileFailed |= fullPathToChart.endswith('.oesu')
                 numFailed += 1
                 continue
@@ -405,14 +405,12 @@ def unencryptChart(path, destination):
         chart = oesenc.Oesenc(outputFile)
 
         if chart.isValid():
-            text = '✔ OK'
-            color = '32'
+            text = 'OK'
         else:
-            color = '31'
-            text = '❌ Failed to validate decrypted chart'
+            text = 'Failed to validate decrypted chart'
             numFailed +=1
 
-        output = '{:>{width}} of {}: {}\x1b[{color}m {}\x1b[39m'.format(counter + 1, len(chartFiles), chartFile, text, color=color, width=len(totalString))
+        output = '{:>{width}} of {}: {} {}'.format(counter + 1, len(chartFiles), chartFile, text, width=len(totalString))
 
         if chart.isValid():
             log.info(output)
@@ -424,7 +422,7 @@ def unencryptChart(path, destination):
         numFailedText = 'and {} failed '.format(numFailed)
 
     if oesuFileFailed:
-        log.info('Please ensure oeserverd is not running and try again')
+        log.warning('Please ensure oeserverd is not running and try again')
         requestStopOeserverd(pipeName, ServiceType.Oeserver)
     else:
         requestStopOeserverd(pipeName, serviceType)
@@ -437,12 +435,8 @@ def unencryptChart(path, destination):
         return False
 
     copyFilesAndDirs(path, otherFiles, destination)
-    log.info('✔ Copied other files')
-
-    output = '│ Decrypted {} charts {}to directory: {} │'.format(len(chartFiles), numFailedText, destination)
-    log.info('╭' + '─' * (len(output) - 2) + '╮')
-    log.info(output)
-    log.info('╰' + '─' * (len(output) - 2) + '╯')
+    log.info('Copied other files')
+    log.info('Decrypted {} charts {}to directory: {}'.format(len(chartFiles), numFailedText, destination))
 
     return True
 
@@ -454,9 +448,9 @@ def handleInfo(args):
     chart = oesenc.Oesenc(chartFile)
     if chart.isValid():
         chart.print()
-        log.fatal('✔ Chart ok')
+        log.info('Chart ok')
     else:
-        log.fatal('❌ Unable to parse chart')
+        log.fatal('Unable to parse chart')
 
 parser = argparse.ArgumentParser(description='')
 subparsers = parser.add_subparsers(help='Command')

@@ -146,28 +146,20 @@ class Oesenc:
         if not self._valid:
             print("Not valid")
             return
-        outputLeft = ('│ Name:           {:<40}│\n'
-                      '│ Version:        {:<39}│\n'
-                      '│ PublishDate:    {:<40}│\n'
-                      '│ UpdateDate:     {:<40}│\n'
-                      '│ Source edition: {:<39}│\n'
-                      '│ nativeScale:    {:<39}│\n'
-                      '│ createDate:     {:<40}│\n'
-                      '│ soundingDate:   {:<40}│\n').format(self._name,
-                                              self._version,
-                                              self._publishDate,
-                                              self._updateDate,
-                                              '{}:{}'.format(self._edition, self._update),
-                                              '1:{}'.format(self._nativeScale),
-                                              self._createDate,
-                                              self._soundingDatum)
 
-        length = 0
-
-        for line in outputLeft.splitlines():
-            if len(line) > length:
-                length = len(line)
-
-        topLine = '╭' + '─' * (length - 3) + '╮'
-        bottomLine = '╰' + '─' * (length - 3) + '╯'
-        print(topLine + '\n' + outputLeft + bottomLine)
+        output = ('Name:           {:<40}\n'
+                  'Version:        {:<39}\n'
+                  'PublishDate:    {:<40}\n'
+                  'UpdateDate:     {:<40}\n'
+                  'Source edition: {:<39}\n'
+                  'nativeScale:    {:<39}\n'
+                  'createDate:     {:<40}\n'
+                  'soundingDate:   {:<40}\n').format(self._name,
+                                                     self._version,
+                                                     self._publishDate,
+                                                     self._updateDate,
+                                                     '{}:{}'.format(self._edition, self._update),
+                                                     '1:{}'.format(self._nativeScale),
+                                                     self._createDate,
+                                                     self._soundingDatum)
+        print(output)
