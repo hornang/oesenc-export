@@ -106,7 +106,7 @@ def locateService():
             return shutil.which("oeserverd.exe", path=r'C:\Program Files (x86)\OpenCPN\plugins\oesenc_pi')
 
     else:
-        oexserverdDirs = [os.path.expandvars('$HOME/.var/app/org.opencpn.OpenCPN/bin'), '/usr/local/bin/' '/usr/bin/']
+        oexserverdDirs = [os.path.expandvars('$HOME/.local/bin'), os.path.expandvars('$HOME/.var/app/org.opencpn.OpenCPN/bin'), '/usr/local/bin/' '/usr/bin/']
 
         for dir in oexserverdDirs:
             exe = shutil.which('oexserverd', path=dir)
