@@ -1,23 +1,24 @@
 # oesenc-export
 
-A python script to export decrypted data from oesu chart files (or from the legacy *oesenc* format). The script pretends to be the o-charts_pi plugin and talks with the decryption service **oexserverd**.
+oesenc-export is a command line tool to decrypt **oesu** chart files. **oesu** is one of the primary chart formats consumed by [OpenCPN](https://opencpn.org). oesenc-export does not perform the decryption itself, but communicates with the **oexserverd** service which performs the decryption. This means that oesenc-export must be used on a computer that already has a working chart installation.
 
-The script has been tested on Windows and Linux.
+The script has been developed and tested on Windows and Linux.
 
 ## Motivation
 
 This software is provided with the following purposes in mind:
 
-* Freedom to deploy your charts on as many devices you have onboard you vessel.
-* Getting chart data to play with when creating your own charting software.
+* For OpenCPN users the freedom to deploy your charts on as many devices you have onboard you vessel.
+* Getting chart data to play with when creating your own chart software.
 * Getting chart data for scientific research.
 
-*Using unencrypted charts with OpenCPN requires changes to the source code.*
+**Using unencrypted charts with OpenCPN requires changes to its source code.**
 
-Please support o-charts.org by purchasing your charts there. Only use this script for the above purposes. Do not share unencrypted chart data with third-parties. 
+Please support [o-charts.org](https://o-charts.org/) by purchasing your charts there. Only use this script for the above purposes. Do not share decrypted chart data with third-parties. 
 
 ## Prerequisites
 
+* The chart files you want to decrypt must be purchased and encrypted for your computer at o-chart.org.
 * The [o-charts Plugin](https://opencpn.org/OpenCPN/plugins/ocharts.html)
 * Python 3.8 or higher
 * Python package `psutil`
@@ -91,11 +92,11 @@ Chart file reading and rendering in OpenCPN all happens inside the plugins. oesu
 
 ## Background
 
-Many hydrological offices do not publish nautical chart data into to the public domain. End customers must acquire charts from commercial chart distributors which is usually not in an open format. This makes it hard to get open nautical chart data.
+Many hydrographic offices do not publish nautical chart data into to the public domain. End customers must acquire charts from commercial chart distributors which is usually not in an open format. This makes it hard to get open nautical chart data.
 
 A few likely reasons:
 
-* The agreement between commercial chart distributor and the hydrological offices force the commercial chart providers to provide copy-protection on the data that they distribute to end customers.
+* The agreement between commercial chart distributor and the hydrographic offices force the commercial chart providers to provide copy-protection on the data that they distribute to end customers.
 * Commercial chart distributors can make money on charts by forcing each customer to acquire charts directly from the distributor only.
 * Encryption to some extent ensures that the files has not been altered by a third-party.
 
