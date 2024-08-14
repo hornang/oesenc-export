@@ -109,7 +109,9 @@ def locateService():
         oexserverdDirs = [os.path.expandvars('$HOME/.var/app/org.opencpn.OpenCPN/bin'),
                           os.path.expandvars('$HOME/.local/bin'),
                           '/usr/local/bin',
-                          '/usr/bin']
+                          '/usr/bin',
+                          '/usr/lib/avnav/plugins/ocharts/bin/',
+                          '/usr/lib/avnav/plugins/ochartsng']
 
         for dir in oexserverdDirs:
             exe = shutil.which('oexserverd', path=dir)
