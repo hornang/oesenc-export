@@ -102,12 +102,12 @@ A few likely reasons:
 
 ### oesu (OpenCPN Encrypted System Electronical Nautical Charts)
 
-oesu charts are purchased via [o-charts.org](https://o-charts.org/). This site is an initiative to provide freshly updated charts for [OpenCPN](https://opencpn.org/). You can buy charts in the oesu format which is a custom format supported only by OpenCPN. The oesu file format is a derived version of the S-57 data format. S-57 is an open vector format describing the chart's elements' spatial and informational properties according to an object model. S-57 is the international standard for chart exchange between hydrological offices.
+oesu charts are purchased via [o-charts.org](https://o-charts.org/). This site is an initiative to provide freshly updated charts for [OpenCPN](https://opencpn.org/). You can buy charts in the oesu format, which is a custom format supported only by OpenCPN. The oesu file format is a derived version of the S-57 data format. S-57 is an open vector format describing the chart's elements' spatial and informational properties according to an object model. S-57 is the international standard for chart exchange between hydrographic offices.
 
-oesu charts are only distributed in an encrypted version to end customers. When you buy a chart on o-charts.org you will be providing a target device signature which is used to encrypt the charts for a specific device. At runtime the charts are decrypted using a hash of some kind of hardware identifier that matches the machine signature you provided when downloading the charts.
+oesu charts are only distributed in an encrypted version to end customers. When you buy a chart on o-charts.org, you will be providing a target device signature which is used to encrypt the charts for a specific device. At runtime, the charts are decrypted using a hash of some kind of hardware identifier that matches the machine signature you provided when downloading the charts.
 
 The encryption stops you from:
 
-- Using your charts on as many devices you want.
-- Porting OpenCPN to to other platforms on which the encryption scheme is not implemented.
+- Using your charts on as many devices as you want.
+- Porting OpenCPN to other platforms on which the encryption scheme is not implemented.
 - Writing your own chart plotter using data from oesu files.
