@@ -1,6 +1,6 @@
 # oesenc-export
 
-oesenc-export is a command line tool to decrypt **oesu** chart files. **oesu** is one of the primary chart formats consumed by [OpenCPN](https://opencpn.org). oesenc-export does not perform the decryption itself, but communicates with the **oexserverd** service which performs the decryption. This means that oesenc-export must be used on a computer that already has a working chart installation.
+oesenc-export is a command line tool to decrypt **OESU** chart files. **OESU** is one of the primary chart formats consumed by [OpenCPN](https://opencpn.org). oesenc-export does not perform the decryption itself, but communicates with the **oexserverd** service which performs the decryption. This means that oesenc-export must be used on a computer that already has a working chart installation.
 
 The script has been developed and tested on Windows and Linux.
 
@@ -88,7 +88,7 @@ soundingDate:   Approximate lowest astronomical tide
 
 ### How it works
 
-Chart file reading and rendering in OpenCPN all happens inside the plugins. oesu format (and the now legacy oesenc format) are handled by the "o-charts_pi" plugin ("pi" for plugin). When you start OpenCPN a system daemon called **oexserverd** is automatically started by the plugin. o-charts_pi talks to **oexserverd** via pipes. When a chart file is to be opened o-charts_pi instructs **oexserverd** to open the file and perform an on-the-fly decryption while streaming the file via the pipe. **oexserverd** internally has calculated the decryption key based on some kind of machine identifier. **oexserverd** executable is not open source. Binaries for the most common platforms are provided in the [o-charts_pi git repository](https://github.com/bdbcat/o-charts_pi).
+Chart file reading and rendering in OpenCPN all happens inside the plugins. OESU format (and the now legacy oesenc format) are handled by the "o-charts_pi" plugin ("pi" for plugin). When you start OpenCPN a system daemon called **oexserverd** is automatically started by the plugin. o-charts_pi talks to **oexserverd** via pipes. When a chart file is to be opened o-charts_pi instructs **oexserverd** to open the file and perform an on-the-fly decryption while streaming the file via the pipe. **oexserverd** internally has calculated the decryption key based on some kind of machine identifier. **oexserverd** executable is not open source. Binaries for the most common platforms are provided in the [o-charts_pi git repository](https://github.com/bdbcat/o-charts_pi).
 
 ## Background
 
@@ -100,14 +100,14 @@ A few likely reasons:
 * Commercial chart distributors can make money on charts by forcing each customer to acquire charts directly from the distributor only.
 * Encryption to some extent ensures that the files has not been altered by a third-party.
 
-### oesu (OpenCPN Encrypted System Electronical Nautical Charts)
+### OESU (OpenCPN Encrypted System Electronical Nautical Charts)
 
-oesu charts are purchased via [o-charts.org](https://o-charts.org/). This site is an initiative to provide freshly updated charts for [OpenCPN](https://opencpn.org/). You can buy charts in the oesu format, which is a custom format supported only by OpenCPN. The oesu file format is a derived version of the S-57 data format. S-57 is an open vector format describing the chart's elements' spatial and informational properties according to an object model. S-57 is the international standard for chart exchange between hydrographic offices.
+OESU charts are purchased via [o-charts.org](https://o-charts.org/). This site is an initiative to provide freshly updated charts for [OpenCPN](https://opencpn.org/). You can buy charts in the OESU format, which is a custom format supported only by OpenCPN. The OESU file format is a derived version of the S-57 data format. S-57 is an open vector format describing the chart's elements' spatial and informational properties according to an object model. S-57 is the international standard for chart exchange between hydrographic offices.
 
-oesu charts are only distributed in an encrypted version to end customers. When you buy a chart on o-charts.org, you will be providing a target device signature which is used to encrypt the charts for a specific device. At runtime, the charts are decrypted using a hash of some kind of hardware identifier that matches the machine signature you provided when downloading the charts.
+OESU charts are only distributed in an encrypted version to end customers. When you buy a chart on o-charts.org, you will be providing a target device signature which is used to encrypt the charts for a specific device. At runtime, the charts are decrypted using a hash of some kind of hardware identifier that matches the machine signature you provided when downloading the charts.
 
 The encryption stops you from:
 
 - Using your charts on as many devices as you want.
 - Porting OpenCPN to other platforms on which the encryption scheme is not implemented.
-- Writing your own chart plotter using data from oesu files.
+- Writing your own chart plotter using data from OESU files.
